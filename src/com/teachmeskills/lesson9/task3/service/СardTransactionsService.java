@@ -24,18 +24,18 @@ public class СardTransactionsService {
     }
 
     private void translationConversion(BaseCard sender, BaseCard recipient, double amount) {
+        double a = currencyConversion(sender.getCurrencyCode(), recipient.getCurrencyCode(), amount);
         double commision = amount * sender.getCommissionPercentage() /100;;
         amount += commision;
-        double a = currencyConversion(sender.getCurrencyCode(), recipient.getCurrencyCode(), amount);
         System.out.println("Номер карты - " + sender.getCardNumber() + " сумма на счете - " + sender.getCurrentAmount());
         sender.withdraw(amount);
-        System.out.println("Сняли - " + amount);
-        System.out.println("Номер карты - " + sender.getCardNumber() + " сумма на счете - " + sender.getCurrentAmount());
+        System.out.println("Сняли - " + String.format("%.2f",amount));
+        System.out.println("Номер карты - " + sender.getCardNumber() + " сумма на счете - " + String.format("%.2f",sender.getCurrentAmount()));
         System.out.println("Конвертировали " + amount + " ---> " +a);
-        System.out.println("Номер карты - " + recipient.getCardNumber() + " сумма на счете - " + recipient.getCurrentAmount());
+        System.out.println("Номер карты - " + recipient.getCardNumber() + " сумма на счете - " + String.format("%.2f",recipient.getCurrentAmount()));
         recipient.deposit(a);
-        System.out.println("Положили - " + a);
-        System.out.println("Номер карты - " + recipient.getCardNumber() + " сумма на счете - " + recipient.getCurrentAmount());
-        System.out.println("Коммисия за перевод " + commision+"\n");
+        System.out.println("Положили - " + String.format("%.2f",a));
+        System.out.println("Номер карты - " + recipient.getCardNumber() + " сумма на счете - " + String.format("%.2f",recipient.getCurrentAmount()));
+        System.out.println("Коммисия за перевод " + String.format("%.2f",commision) + "\n");
     }
 }

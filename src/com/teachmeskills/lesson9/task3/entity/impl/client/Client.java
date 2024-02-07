@@ -97,6 +97,7 @@ public class Client {
             System.out.println("Вы не можете сделать перевод на ту же карту\n");
         }
     }
+
     public void showInfo(){
         System.out.println(name + "  " + surname);
         for (int i = 0; i < cards.length; i++) {
