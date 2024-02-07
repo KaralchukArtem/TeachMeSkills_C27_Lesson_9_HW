@@ -1,6 +1,6 @@
-package com.teachmeskills.lesson9.task3.utils;
+package com.teachmeskills.lesson9.task3.constant;
 
-public interface   ConstRate {
+public interface ConstRate {
     double EUR_TO_BYN = 3.47;
     double USD_TO_BYN = 3.22;
     double GBP_TO_BYN = 4.08;

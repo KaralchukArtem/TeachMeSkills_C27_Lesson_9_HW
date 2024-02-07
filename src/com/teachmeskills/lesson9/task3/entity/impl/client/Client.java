@@ -3,16 +3,18 @@ package com.teachmeskills.lesson9.task3.entity.impl.client;
 import com.teachmeskills.lesson9.task3.entity.BaseCard;
 import com.teachmeskills.lesson9.task3.service.СardTransactionsService;
 
+import java.util.Objects;
+
 public class Client {
-    private String name = "";
-    private String surname = "";
-    private String passportNumber = "";
-    private String dateOfBirth = "";
-    private String postcode = "";
-    private String country = "";
-    private String city = "";
-    private String street = "";
-    private String houseNumber = "";
+    private String name;
+    private String surname;
+    private String passportNumber;
+    private String dateOfBirth;
+    private String postcode;
+    private String country;
+    private String city;
+    private String street;
+    private String houseNumber;
     private BaseCard[] cards;
 
     public Client(String name, String surname, String passportNumber, String dateOfBirth, String postcode, String country, String city, String street, String houseNumber) {
@@ -88,7 +90,18 @@ public class Client {
         this.cards = baseCard;
     }
     public void transfer(String IBAN1,String IBAN2,int amount){
-        СardTransactionsService сardTransactionsService = new СardTransactionsService();
-        сardTransactionsService.transfer(cards,IBAN1,IBAN2,amount);
+        if (!Objects.equals(IBAN1,IBAN2)){
+            СardTransactionsService сardTransactionsService = new СardTransactionsService();
+            сardTransactionsService.transfer(cards,IBAN1,IBAN2,amount);
+        }else {
+            System.out.println("Вы не можете сделать перевод на ту же карту\n");
+        }
+    }
+    public void showInfo(){
+        System.out.println(name + "  " + surname);
+        for (int i = 0; i < cards.length; i++) {
+            System.out.println("Номер карты - " + cards[i].getCardNumber() + " сумма на счете - " + cards[i].getCurrentAmount());
+        }
+        System.out.println();
     }
 }

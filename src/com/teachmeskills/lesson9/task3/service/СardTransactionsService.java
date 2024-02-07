@@ -1,14 +1,11 @@
 package com.teachmeskills.lesson9.task3.service;
-
 import com.teachmeskills.lesson9.task3.entity.BaseCard;
-
-import static com.teachmeskills.lesson9.task3.fabric.CurrencyConversionFabric.currencyConversion;
+import static com.teachmeskills.lesson9.task3.service.CurrencyConversionService.currencyConversion;
 
 public class СardTransactionsService {
 
-    public BaseCard[] transfer(BaseCard[] baseCard, String IBAN1, String IBAN2, double amount) {
+    public void transfer(BaseCard[] baseCard, String IBAN1, String IBAN2, double amount) {
         BaseCard sender = null, recipient = null;
-
         for (BaseCard card : baseCard) {
             if (card.getIBAN().equals(IBAN1)) {
                 sender = card;
@@ -17,31 +14,28 @@ public class СardTransactionsService {
                 recipient = card;
             }
         }
-        if (amount > 0 ){
-            if ((sender.getCurrentAmount()-amount > 0) & (sender.getLimits() > amount )){
-                translationConversion(sender,recipient,amount);
-                return baseCard;
-            }
-        }else {
+        assert sender != null;
+        if ((amount > 0) & (sender.getLimits() > amount)) {
+            assert recipient != null;
+            translationConversion(sender, recipient, amount);
+        } else {
             System.out.println("Введено не верная сумма пополнения");
         }
-        return baseCard;
     }
 
-    private BaseCard transferLimit (){
-        return null;
-    }
-
-    private BaseCard translationConversion(BaseCard sender,BaseCard recipient,double amount){
-        double a = currencyConversion(sender.getCurrency(),recipient.getCurrency(),amount);
-        System.out.println(sender.getCurrentAmount() + " sender 1");
+    private void translationConversion(BaseCard sender, BaseCard recipient, double amount) {
+        double commision = amount * sender.getCommissionPercentage() /100;;
+        amount += commision;
+        double a = currencyConversion(sender.getCurrencyCode(), recipient.getCurrencyCode(), amount);
+        System.out.println("Номер карты - " + sender.getCardNumber() + " сумма на счете - " + sender.getCurrentAmount());
         sender.withdraw(amount);
-        System.out.println(amount + " Конвертация " + a);
-        System.out.println(sender.getCurrentAmount() + " sender");
-        System.out.println(recipient.getCurrentAmount() + " recipient 1");
+        System.out.println("Сняли - " + amount);
+        System.out.println("Номер карты - " + sender.getCardNumber() + " сумма на счете - " + sender.getCurrentAmount());
+        System.out.println("Конвертировали " + amount + " ---> " +a);
+        System.out.println("Номер карты - " + recipient.getCardNumber() + " сумма на счете - " + recipient.getCurrentAmount());
         recipient.deposit(a);
-        System.out.println(recipient.getCurrentAmount() + " recipient");
-
-        return null;
+        System.out.println("Положили - " + a);
+        System.out.println("Номер карты - " + recipient.getCardNumber() + " сумма на счете - " + recipient.getCurrentAmount());
+        System.out.println("Коммисия за перевод " + commision+"\n");
     }
 }
