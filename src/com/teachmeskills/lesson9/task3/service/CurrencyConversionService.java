@@ -37,6 +37,7 @@ public class CurrencyConversionService implements ConstRate {
                         }
                     }
                 }
+                break;
             case GBP:
                 for (int i = 0; i < marRate.length; i++) {
                     for (int j = 0; j < marRate[i].length; j++) {
@@ -46,6 +47,7 @@ public class CurrencyConversionService implements ConstRate {
                         }
                     }
                 }
+                break;
             case JPY:
                 for (int i = 0; i < marRate.length; i++) {
                     for (int j = 0; j < marRate[i].length; j++) {
@@ -55,6 +57,7 @@ public class CurrencyConversionService implements ConstRate {
                         }
                     }
                 }
+                break;
             case CNY:
                 for (int i = 0; i < marRate.length; i++) {
                     for (int j = 0; j < marRate[i].length; j++) {
@@ -64,6 +67,7 @@ public class CurrencyConversionService implements ConstRate {
                         }
                     }
                 }
+                break;
         }
         return amount;
     }
