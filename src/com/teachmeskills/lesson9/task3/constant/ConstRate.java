@@ -7,3 +7,4 @@ public interface ConstRate {
     double JPY_TO_BYN = 0.021665;
     double CNY_TO_BYN = 0.446144;
 }
+

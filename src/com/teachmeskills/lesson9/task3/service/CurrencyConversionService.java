@@ -1,12 +1,9 @@
 package com.teachmeskills.lesson9.task3.service;
 
 import com.teachmeskills.lesson9.task3.constant.ConstRate;
+import com.teachmeskills.lesson9.task3.constant.CurrencyCode;
 
-import java.util.Objects;
-
-import static com.teachmeskills.lesson9.task3.constant.CurrencyCode.*;
-
-public class CurrencyConversionService implements ConstRate {
+public class CurrencyConversionService implements ConstRate, CurrencyCode {
 
     public static double currencyConversion(int currencySender, int currencyRecipient, double amount) {
         double[][] marRate = new double[][]{
@@ -16,59 +13,16 @@ public class CurrencyConversionService implements ConstRate {
                 {JPY, JPY_TO_BYN},
                 {CNY, CNY_TO_BYN}
         };
-
-        switch (currencySender) {
-            case USD:
-                for (int i = 0; i < marRate.length; i++) {
-                    for (int j = 0; j < marRate[i].length; j++) {
-                        if (marRate[i][j] == currencyRecipient) {
-                            amount = USD_TO_BYN / marRate[i][j+1] * amount;
-                            break;
-                        }
-                    }
-                }
-                break;
-            case EUR:
-                for (int i = 0; i < marRate.length; i++) {
-                    for (int j = 0; j < marRate[i].length; j++) {
-                        if (marRate[i][j] == currencyRecipient) {
-                            amount = EUR_TO_BYN / marRate[i][j+1] * amount;
-                            break;
-                        }
-                    }
-                }
-                break;
-            case GBP:
-                for (int i = 0; i < marRate.length; i++) {
-                    for (int j = 0; j < marRate[i].length; j++) {
-                        if (marRate[i][j] == currencyRecipient) {
-                            amount = GBP_TO_BYN / marRate[i][j+1] * amount;
-                            break;
-                        }
-                    }
-                }
-                break;
-            case JPY:
-                for (int i = 0; i < marRate.length; i++) {
-                    for (int j = 0; j < marRate[i].length; j++) {
-                        if (marRate[i][j] == currencyRecipient) {
-                            amount = JPY_TO_BYN / marRate[i][j+1] * amount;
-                            break;
-                        }
-                    }
-                }
-                break;
-            case CNY:
-                for (int i = 0; i < marRate.length; i++) {
-                    for (int j = 0; j < marRate[i].length; j++) {
-                        if (marRate[i][j] == currencyRecipient) {
-                            amount = CNY_TO_BYN / marRate[i][j+1] * amount;
-                            break;
-                        }
-                    }
-                }
-                break;
+        double rateSender = 0;
+        double rateRecipient = 0;
+        for (int i = 0; i < marRate.length; i++) {
+            if (marRate[i][0] == currencySender) {
+                rateSender = marRate[i][1];
+            } else if (marRate[i][0] == currencyRecipient) {
+                rateRecipient = marRate[i][1];
+            }
         }
+        amount = rateSender / rateRecipient * amount;
         return amount;
     }
 }

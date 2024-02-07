@@ -7,11 +7,11 @@ import static com.teachmeskills.lesson9.task3.service.CreateCardsService.createC
 public class Run {
     public static void main(String[] args) {
 
-        Client client = new Client("Артём", "Каральчук", "MC1324512", "21.04.2003","213412", "Belarus","Minsk","Luurke", "32");
+        Client client = new Client("Артём", "Каральчук", "MC1324512", "21.04.2003", "213412", "Belarus", "Minsk", "Luurke", "32");
 
         client.setBaseCard(createCards());
         client.showInfo();
-        client.transfer("BY33-2222","BY33-1111",45);
+        client.transfer("BY33-1111", "BY33-5555", 45);
         client.showInfo();
     }
 }
